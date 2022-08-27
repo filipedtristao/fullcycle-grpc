@@ -21,6 +21,8 @@ func main() {
 	pb.RegisterUserServiceServer(grpcServer, &services.UserService{})
 	reflection.Register(grpcServer)
 
+	log.Printf("Server started at localhost:50051")
+	
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Could not serve: %v", err)
 	}

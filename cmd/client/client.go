@@ -146,8 +146,10 @@ func AddUserStreamBoth(client pb.UserServiceClient) {
 		},
 	}
 
+	// Channel to keep the script alive
 	wait := make(chan int)
 
+	// Using GO routings to send & receive from gRPC at same time
 	go func() {
 		for _, req := range reqs {
 			fmt.Println("Sending user: ", req.Name)
@@ -169,6 +171,7 @@ func AddUserStreamBoth(client pb.UserServiceClient) {
 			}
 			fmt.Printf("Recebendo user %v com status: %v\n", res.GetUser().GetName(), res.GetStatus())
 		}
+		//End the script
 		close(wait)
 	}()
 
